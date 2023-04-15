@@ -1,0 +1,112 @@
+.navbar-custom {
+    background-color: #2A2A2A;/*453D82;#4e468b;*/
+}
+
+.profile-page .profile-header {
+    box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+    border: 1px solid #404040; /*========================================= граница шапки профиля*/
+}
+
+.profile-page .profile-header .cover .gray-shade {
+    background: linear-gradient(rgba(255, 255, 255, 0.1), #212121 99%); /* градиент шапки =========================================*/
+}
+
+.profile-page .profile-header .header-links {
+    background: #212121;                 /*========================================= фон таймлайн эбоут...*/
+}
+
+.profile-page .profile-header .header-links ul li a {
+    color: white;          /*========================================= цвет шрифта таймлайн...*/
+}
+
+.card-header {
+    border-bottom: 1px solid #404040;   /*=========================================*/
+}
+
+.card-footer {
+    border-top: 1px solid #404040;   /*=========================================*/
+}
+
+.card {
+    background-color: #212121;   /*=========================================*/
+    border: 1px solid #404040;
+}
+
+body {
+    background-color: black;
+    color: white;
+}
+
+.form-control:focus {
+    color: white;
+}
+
+.card-body-my svg {
+    color: #585858;
+}
+
+.mescolor {
+    background-color: #353535;
+}
+
+.bottom-color {
+    border-bottom: 1px solid #404040;
+}
+
+.top-color {
+    border-top: 1px solid #404040;
+}
+.right-color {
+    border-right: 1px solid #404040;
+}
+
+
+.form-control { /*===========================  message text input */
+    color: white;
+}
+
+
+.list-group-item {  /*========================================= список чатов */
+    background-color: #212121;
+    color: white;
+    border: 1px solid rgba(0,0,0,.125);
+}
+.list-group-item-action {
+    color: white;
+}
+
+
+.form-control, .form-control:active, .form-control:focus {
+    background-color: #353535;
+    border-color: #404040;
+}
+
+.card-body-my h6:hover, .message:hover {
+    background-color: #404040;
+    color: white;
+}
+
+/* Полоса прокрутки. W3C standard. сейчас только для Firefox */
+* {
+  scrollbar-color: #464646 black/*#FFA91B*/;
+}
+/* для Chrome/Edge/Safari */
+*::-webkit-scrollbar-thumb {
+  background-color: #464646/*white*/;
+  border: 1px solid #212121/*#FFA91B*/;
+}
+
+a.message {
+    border-bottom: 1px solid #404040;
+}
+a.color {
+    color: white !important;
+}
+
+.send {
+    fill: #404040;
+}
+
+.switch {
+    fill: #A0A0A0;
+}

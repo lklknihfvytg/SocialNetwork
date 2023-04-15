@@ -1,0 +1,524 @@
+.navbar-custom {
+    background-color: #4E468B;
+}
+.navbar-custom .navbar-brand,
+.navbar-custom .navbar-text, .navbar-nav, .nav-link {
+    color: #fff;
+}
+.nav-link.hover {
+    color: #fff;
+}
+header {
+    margin-bottom: 10px;
+
+}
+/*.container {
+    margin-top: 4em;
+}
+
+header {
+    width: 100%;
+    text-align: justify;
+    letter-spacing: 1px;
+    height: 3em;
+    padding: 0.2em 2%;
+    background: #4e468b;
+    color: #fff;
+    margin-bottom:20px;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+header h1,
+header nav {
+    display: inline-block;
+}
+
+header::after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+}*/
+
+
+.centering {
+    margin: 0 220px;
+}
+
+.background {
+    background-image: url(https://bootdey.com/img/Content/bg1.jpg);
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+
+.blur {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px); // This be the blur
+    height: 100vh;
+    width: 50%;
+}
+
+.padding {
+    padding: 15px;
+}
+.float {
+    position: fixed !important;
+}
+
+body {
+    background-color: #f5f5f5;
+    color: black;
+    overflow: overlay;
+}
+
+/* Полоса прокрутки. W3C standard. сейчас только для Firefox */
+* {
+  scrollbar-width: middle;
+  scrollbar-color: #C4C4C4 #f5f5f5/*#FFA91B*/;
+}
+/* для Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  height: 12px;
+  width: 5px;
+}
+*::-webkit-scrollbar-track {
+  /*background: white#f5f5f5#FFA91B*/;
+  background: rgba(0, 0, 0, 0);
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #DBDADF/*white*/;
+  border-radius: 0px;
+  border: 1px solid #f5f5f5/*#FFA91B*/;
+}
+
+.mescolor {
+    background-color: #F0F0F0;
+    font-size: 0.85rem;
+}
+
+.switch {
+    fill: #CDC5FF;
+}
+
+.button-send {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+.chat-message-left mescolor {
+    padding: 16px 8px;
+    margin: 0px 0px 0px 16px;
+}
+
+card-header-my {
+    padding: 0.875rem 1.5rem;
+    padding: 14px 24px;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #DFDFDF;
+    min-height: 30px;
+    width: 90px;
+    box-sizing: border-box;
+    display: block;
+}
+
+
+.bottom-color {
+    border-bottom: 1px solid #DFDFDF;
+}
+
+.top-color {
+    border-top: 1px solid #DFDFDF;
+}
+.right-color {
+    border-right: 1px solid #DFDFDF;
+}
+
+
+.onlyline {
+   overflow: hidden;
+   display: -webkit-box;
+   -webkit-line-clamp: 1; /* number of lines to show */
+           line-clamp: 1;
+   -webkit-box-orient: vertical;
+   color: grey;
+}
+
+.profile-page .profile-header {
+    box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+    border: 1px solid #DFDFDF;
+}
+
+.profile-page .profile-header .cover {
+    position: relative;
+    border-radius: .85rem;
+}
+
+
+.card-child {
+    margin: 20px;
+}
+
+
+input.profile {
+    font-size: 11pt;
+    background: transparent;
+    border: 1px solid #c5c7cb;
+    border-radius: .45rem;
+    padding: 11px;
+}
+::-moz-placeholder {
+   line-height:60px;
+}
+::-webkit-input-placeholder {
+   line-height:60px;
+}
+:-ms-input-placeholder {
+   line-height:60px;
+}
+
+input.small {
+    height: 25px;
+    width: 140px;
+}
+input.mid {
+    height: 30px;
+    width: 280px;
+}
+input.big {
+    height: 140px;
+    width: 280px;
+    padding-bottom: 115px;
+}
+
+.profile-header {
+    border-radius: .85rem;
+}
+
+span.edit {
+    display: inline-block;
+    font-size: 11pt;
+    vertical-align: top;
+    margin-top: 5px;
+}
+
+
+.profile-page .profile-header .cover figure {
+    margin-bottom: 0;
+}
+
+@media (max-width: 767px) {
+    .profile-page .profile-header .cover figure {
+        height: 80px;
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 2400px) {
+    .profile-page .profile-header .cover figure {
+        height: 100px;
+        overflow: hidden;
+    }
+}
+
+.profile-page .profile-header .cover figure img {
+    border-radius: .85rem;
+    width: 100%;
+    height: 300px;
+    object-fit:cover;
+}
+
+@media (max-width: 767px) {
+    .profile-page .profile-header .cover figure img {
+        -webkit-transform: scale(2);
+        transform: scale(2);
+        margin-top: 15px;
+    }
+}
+
+@media (min-width: 2400px) {
+    .profile-page .profile-header .cover figure img {
+        margin-top: -55px;
+    }
+}
+
+.profile-page .profile-header .cover .gray-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: linear-gradient(rgba(255, 255, 255, 0.1), #fff 99%);
+}
+
+.profile-page .profile-header .cover .cover-body {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.profile-page .profile-header .cover .cover-body .profile-pic {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit:cover;
+}
+
+@media (max-width: 767px) {
+    .profile-page .profile-header .cover .cover-body .profile-pic {
+        width: 70px;
+        height: 70px;
+        object-fit:cover;
+    }
+}
+
+.card-body-my svg {
+    color: #A5A5A5;
+}
+
+.card-body-my h6 {
+    padding: 7px 20px 7px 17px;
+    margin: 0;
+}
+
+.card-body-my h6.first {
+    border-radius: .85rem .85rem 0 0;
+    padding-top: 15px;
+}
+.card-body-my h6.last {
+    border-radius: 0 0 .85rem .85rem;
+    padding-bottom: 15px;
+}
+
+.card-body-my h6:hover, .message:hover{
+    background-color: #F5F5F5;
+}
+
+
+
+.list-group-item {
+    padding: 0.55rem 1rem;
+}
+
+img {
+    display: inline;
+    margin: 0 auto;
+    height: 100%;
+    width: auto;
+    vertical-align: middle;
+    border-style: none;
+}
+
+.profile-page .profile-header .cover .cover-body .profile-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 17px;
+}
+
+.profile-page .profile-header .header-links {
+    padding: 15px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 0 0 .85rem .85rem;
+}
+
+.profile-page .profile-header .header-links ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-page .profile-header .header-links ul li a {
+    color: #000;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+}
+
+.profile-page .profile-header .header-links ul li:hover,
+.profile-page .profile-header .header-links ul li.active {
+    color: #727cf5;
+}
+
+.profile-page .profile-header .header-links ul li:hover a,
+.profile-page .profile-header .header-links ul li.active a {
+    color: #727cf5;
+}
+
+.profile-page .profile-body .left-wrapper .social-links a {
+    width: 30px;
+    height: 30px;
+}
+
+.profile-page .profile-body .right-wrapper .latest-photos > .row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.profile-page .profile-body .right-wrapper .latest-photos > .row > div {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.profile-page .profile-body .right-wrapper .latest-photos > .row > div figure {
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    margin-bottom: 6px;
+}
+
+.profile-page .profile-body .right-wrapper .latest-photos > .row > div figure:hover {
+    -webkit-transform: scale(1.06);
+    transform: scale(1.06);
+}
+
+.profile-page .profile-body .right-wrapper .latest-photos > .row > div figure img {
+    border-radius: .85rem;
+}
+
+.rtl .profile-page .profile-header .cover .cover-body .profile-name {
+    margin-left: 0;
+    margin-right: 17px;
+}
+.img-xs {
+    width: 37px;
+    height: 37px;
+}
+.rounded-circle {
+    border-radius: 50% !important;
+}
+.round {
+    border-radius: 0.55rem !important;
+}
+
+.card-header:first-child {
+    border-radius: 0 0 0 0;
+}
+.card-header {
+    padding: 0.875rem 1.5rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #DFDFDF;
+}
+
+.card-footer:last-child {
+    border-radius: 0 0 0 0;
+}
+.card-footer {
+    padding: 0.875rem 1.5rem;
+    background-color: rgba(0, 0, 0, 0);
+    border-top: 1px solid #DFDFDF;
+}
+
+.grid-margin {
+    margin-bottom: 1rem;
+}
+
+.card {
+    box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+    -webkit-box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+    -moz-box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+    -ms-box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+}
+.rounded {
+    border-radius: 0.85rem !important;
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #DFDFDF;
+    border-radius: 0.85rem;
+}
+
+
+
+
+/* ===================== messages */
+
+
+.chat-online {
+    color: #34ce57
+}
+
+.chat-offline {
+    color: #e4606d
+}
+
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    height: calc(96vh - (60px + 60px + 60px));
+    overflow-y: auto
+}
+
+.chat-message-left,
+.chat-message-right {
+    display: flex;
+    flex-shrink: 0
+}
+
+.chat-message-left {
+    margin-right: auto
+}
+
+.chat-message-right {
+    flex-direction: row-reverse;
+    margin-left: auto
+}
+.py-3 {
+    padding-top: 1rem!important;
+    padding-bottom: 1rem!important;
+}
+.px-4 {
+    padding-right: 1.5rem!important;
+    padding-left: 1.5rem!important;
+}
+.flex-grow-0 {
+    flex-grow: 0!important;
+}
+.border-top {
+    border-top: 1px solid #DFDFDF !important;
+}
+
+/* ===================== */
+
+
+
+
+a.message {
+    border: 0;
+    border-bottom: 1px solid #DFDFDF;
+}
+a.color {
+    color: black !important;
+    text-decoration: none !important;
+}
+
+.send {
+    opacity:1;
+    fill: #A5A5A5;
+    fill-opacity: 1;
+    stroke: none;
+    stroke-width: 2;
+    stroke-miterlimit: 4;
+    stroke-dasharray: none;
+    stroke-opacity: 1"
+}

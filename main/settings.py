@@ -18,7 +18,10 @@ load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATES_DIRS = os.path.join(BASE_DIR, "templates")
+TEMPLATES_DIRS = os.path.join(BASE_DIR, 'templates')
+STATIC_URL = os.path.join(BASE_DIR, 'static/')
+IMG_DIRS = os.path.join(STATIC_URL, 'img')
+AVATAR_DIRS = os.path.join(IMG_DIRS, 'avatar')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
@@ -47,7 +50,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # --- my apps ---
     'network',
-    # 'authentication',
+    'authentication',
+    'posts',
+    'messanger',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +78,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # --- my templates ---
+                # 'messanger.templatetags.messanger_tags'
             ],
         },
     },
@@ -121,9 +128,9 @@ else:
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-ru'  # 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'  # 'UTC'
 
 USE_I18N = True
 
@@ -132,8 +139,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

@@ -1,0 +1,32 @@
+{% extends 'base_profile.html' %}
+<!--{% block title %}Моя страница{% endblock title %}-->
+{% block timeline %}{% endblock timeline %}">
+{% block about %}active{% endblock about %}
+{% block friends %}{% endblock friends %}
+{% block photos %}{% endblock photos %}
+{% block videos %}{% endblock videos %}
+{% block profile %}
+
+
+                    <!-- ========= // About \\ ========= -->
+
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-12 grid-margin">
+                                    <div class="card rounded">
+                                        <div class="card-child">
+                                            <label><span class="edit">Краткая информация:</span>
+                                            <input type="text" id="about" class="profile big" name="about" placeholder="Расскажите о себе" value="{{ user.profile.about }}" disabled></label>
+                                            <br><label><span class="edit">&nbsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Город:</span>
+                                            <input type="text" id="city" class="profile mid" name="city" value="{{ user.profile.city }}" disabled></label>
+                                            <br><label><span class="edit">&emsp;&emsp;&emsp;Дата рождения:</span>
+                                            <input class="profile mid" type="date" name="date_of_birth" value="{{ user.profile.date_of_birth|date:'Y-m-j' }}" disabled></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+{% endblock profile %}

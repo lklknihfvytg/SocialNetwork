@@ -1,0 +1,21 @@
+{% extends 'base_profile.html' %}
+<!--{% block title %}Моя страница{% endblock title %}-->
+{% block timeline %}active{% endblock timeline %}">
+{% block about %}{% endblock about %}
+{% block friends %}{% endblock friends %}
+{% block photos %}{% endblock photos %}
+{% block videos %}{% endblock videos %}
+{% block profile %}
+
+
+<!-- ========= // Posts \\ ========= -->
+<div class="col-8">
+    <div class="row">
+    {% for post in user.posts.all %}
+        {% include "post.html" %}
+    {% endfor %}
+    </div>
+</div>
+
+
+{% endblock profile %}

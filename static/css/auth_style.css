@@ -1,0 +1,520 @@
+.background {
+    background-image: url(https://bootdey.com/img/Content/bg1.jpg);
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+
+.blur {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px); // This be the blur
+    height: 100vh;
+    width: 50%;
+}
+
+.padding {
+    padding: 15px;
+}
+.float {
+    position: fixed !important;
+}
+
+.middle {  /* Центральный блок сайта */
+    width: 100px;
+    height: 200px;
+    margin: 15% auto 0 auto;
+}
+
+body{
+    background-image: url(https://bootdey.com/img/Content/bg1.jpg);
+    backdrop-filter: blur(10px);
+    margin-top:20px;
+}
+
+.profile-page .profile-header {
+    box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+    border: 1px solid #f2f4f9;
+}
+
+.profile-page .profile-header .cover {
+    position: relative;
+    border-radius: .85rem .85rem 0 0;
+}
+
+
+.profile-header {
+    border-radius: .85rem;
+}
+
+
+.profile-page .profile-header .cover figure {
+    margin-bottom: 0;
+}
+
+@media (max-width: 767px) {
+    .profile-page .profile-header .cover figure {
+        height: 80px;
+        overflow: hidden;
+    }
+}
+
+@media (min-width: 2400px) {
+    .profile-page .profile-header .cover figure {
+        height: 100px;
+        overflow: hidden;
+    }
+}
+
+.profile-page .profile-header .cover figure img {
+    border-radius: .85rem .85rem 0 0;
+    width: 100%;
+    height: 300px;
+    object-fit:cover;
+}
+
+@media (max-width: 767px) {
+    .profile-page .profile-header .cover figure img {
+        -webkit-transform: scale(2);
+        transform: scale(2);
+        margin-top: 15px;
+    }
+}
+
+@media (min-width: 2400px) {
+    .profile-page .profile-header .cover figure img {
+        margin-top: -55px;
+    }
+}
+
+.profile-page .profile-header .cover .gray-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: linear-gradient(rgba(255, 255, 255, 0.1), #fff 99%);
+}
+
+.profile-page .profile-header .cover .cover-body {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.profile-page .profile-header .cover .cover-body .profile-pic {
+    border-radius: 50%;
+    width: 100px;
+}
+
+@media (max-width: 767px) {
+    .profile-page .profile-header .cover .cover-body .profile-pic {
+        width: 70px;
+    }
+}
+
+.profile-page .profile-header .cover .cover-body .profile-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 17px;
+}
+
+.profile-page .profile-header .header-links {
+    padding: 15px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    background: #fff;
+    border-radius: 0 0 .85rem .85rem;
+}
+
+.profile-page .profile-header .header-links ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-page .profile-header .header-links ul li a {
+    color: #000;
+    -webkit-transition: all .2s ease;
+    transition: all .2s ease;
+}
+
+.profile-page .profile-header .header-links ul li:hover,
+.profile-page .profile-header .header-links ul li.active {
+    color: #727cf5;
+}
+
+.profile-page .profile-header .header-links ul li:hover a,
+.profile-page .profile-header .header-links ul li.active a {
+    color: #727cf5;
+}
+
+.profile-page .profile-body .left-wrapper .social-links a {
+    width: 30px;
+    height: 30px;
+}
+
+.profile-page .profile-body .right-wrapper .latest-photos > .row {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.profile-page .profile-body .right-wrapper .latest-photos > .row > div {
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.profile-page .profile-body .right-wrapper .latest-photos > .row > div figure {
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    margin-bottom: 6px;
+}
+
+.profile-page .profile-body .right-wrapper .latest-photos > .row > div figure:hover {
+    -webkit-transform: scale(1.06);
+    transform: scale(1.06);
+}
+
+.profile-page .profile-body .right-wrapper .latest-photos > .row > div figure img {
+    border-radius: .85rem;
+}
+
+.rtl .profile-page .profile-header .cover .cover-body .profile-name {
+    margin-left: 0;
+    margin-right: 17px;
+}
+.img-xs {
+    width: 37px;
+    height: 37px;
+}
+.rounded-circle {
+    border-radius: 50% !important;
+}
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+.card-header:first-child {
+    border-radius: 0 0 0 0;
+}
+.card-header {
+    padding: 0.875rem 1.5rem;
+    margin-bottom: 0;
+    background-color: rgba(0, 0, 0, 0);
+    border-bottom: 1px solid #f2f4f9;
+}
+
+.card-footer:last-child {
+    border-radius: 0 0 0 0;
+}
+.card-footer {
+    padding: 0.875rem 1.5rem;
+    background-color: rgba(0, 0, 0, 0);
+    border-top: 1px solid #f2f4f9;
+}
+
+.grid-margin {
+    margin-bottom: 1rem;
+}
+
+.card {
+    box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+    -webkit-box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+    -moz-box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+    -ms-box-shadow: 0 0 10px 0 rgba(183, 192, 206, 0.2);
+}
+.rounded {
+    border-radius: 0.85rem !important;
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: rgba(255, 255, 255, 0.5);
+    background-clip: border-box;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 0.85rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+a {
+  color: #ededed; /* #cccccc;*/
+  display:inline-block;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+h2 {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display:inline-block;
+  margin: 40px 8px 10px 8px;
+  color: #cccccc;
+}
+
+
+h3 {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display:inline-block;
+  margin: 40px 8px 10px 8px;
+  color: #cccccc;
+}
+
+
+
+/* STRUCTURE */
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  min-height: 100%;
+  padding: 10%;
+}
+
+#formContent {
+  -webkit-border-radius: 0.85rem;
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.5); /* #fff;*/
+  padding: 30px;
+  width: 90%;
+  max-width: 450px;
+  position: relative;
+  padding: 0px;
+  -webkit-box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  box-shadow: 0 30px 60px 0 rgba(0,0,0,0.3);
+  text-align: center;
+}
+
+
+/* TABS */
+
+h3.inactive {
+  color: #ededed;
+}
+
+h2.active {
+  color: #fff;
+}
+
+
+
+/* FORM TYPOGRAPHY*/
+
+input[type=button], input[type=submit], input[type=reset]  {
+  background-color: #733c76;
+  border: none;
+  color: white;
+  padding: 15px 80px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 13px;
+  -webkit-box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  box-shadow: 0 10px 30px 0 rgba(95,186,233,0.4);
+  -webkit-border-radius: 0.75rem;
+  border-radius: 0.75rem;
+  margin: 5px 20px 40px 20px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+  background-color: #814d84; /* наведеление кнопка */
+}
+
+input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+  -moz-transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -o-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  transform: scale(0.95);
+}
+
+input[type=text], input[type=password] {
+  background-color:  rgba(255, 255, 255, 0.4); /*#f6f6f6;*/
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 85%;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 0.8rem;
+  border-radius: 0.8rem;
+}
+
+input[type=text]:focus {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+input[type=text]:placeholder {
+  color: #ededed;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #ededed;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #ededed;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #ededed;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #ededed;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #ededed;
+}
+::placeholder { /* Most modern browsers support this now. */
+   color:    #ededed;
+}
+
+/* ANIMATIONS */
+
+/* Simple CSS3 Fade-in-down Animation */
+.fadeInDown {
+  -webkit-animation-name: fadeInDown;
+  animation-name: fadeInDown;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+
+@-webkit-keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    -webkit-transform: translate3d(0, -100%, 0);
+    transform: translate3d(0, -100%, 0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: none;
+    transform: none;
+  }
+}
+
+/* Simple CSS3 Fade-in Animation */
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.fadeIn {
+  opacity:0;
+  -webkit-animation:fadeIn ease-in 1;
+  -moz-animation:fadeIn ease-in 1;
+  animation:fadeIn ease-in 1;
+
+  -webkit-animation-fill-mode:forwards;
+  -moz-animation-fill-mode:forwards;
+  animation-fill-mode:forwards;
+
+  -webkit-animation-duration:1s;
+  -moz-animation-duration:1s;
+  animation-duration:1s;
+}
+
+.fadeIn.first {
+  -webkit-animation-delay: 0.4s;
+  -moz-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+
+.fadeIn.second {
+  -webkit-animation-delay: 0.6s;
+  -moz-animation-delay: 0.6s;
+  animation-delay: 0.6s;
+}
+
+.fadeIn.third {
+  -webkit-animation-delay: 0.8s;
+  -moz-animation-delay: 0.8s;
+  animation-delay: 0.8s;
+}
+
+.fadeIn.fourth {
+  -webkit-animation-delay: 1s;
+  -moz-animation-delay: 1s;
+  animation-delay: 1s;
+}
+
+/* Simple CSS3 Fade-in Animation */
+
+
+.underlineHover:hover {
+  color: #fff;
+}
+
+.underlineHover:hover:after{
+  width: 100%;
+}
+
+
+
+/* OTHERS */
+
+*:focus {
+    outline: none;
+}
+
+#icon {
+  width:60%;
+}
+
+* {
+  box-sizing: border-box;
+}

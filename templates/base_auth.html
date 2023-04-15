@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>sn | {% block title %}{% endblock title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/auth_style.css' %}">
+</head>
+<body>
+<div class="wrapper fadeInDown">
+
+
+
+
+{% block container %}
+
+{% endblock container %}
+
+
+
+
+</div>
+<!--<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>-->
+<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"></script>
+</body>
+</html>

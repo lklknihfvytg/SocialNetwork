@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load messanger_tags %}
+{% block title %}Моя страница{% endblock title %}
+{% block head %}
+{% endblock head %}
+{% block container %}
+
+
+<div class="col-10">
+    <main class="content">
+        <div class="container p-0">
+            <div class="card rounded">
+                <div class="row g-0">
+
+
+                    <div style="height: calc(96vh - 60px); padding-right: 0px;"
+                         class="col-4 col-lg-5 col-xl-4 right-color">
+
+                        <div style="height: 60px" class="px-2 d-none d-md-block bottom-color">
+                            <div class="d-flex align-items-center">
+                                <div class="flex-grow-1">
+                                    <input type="text" class="round form-control my-2" placeholder="Search...">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="height: calc(96vh - (60px + 70px)); overflow: auto; border-0;">
+                            {% for chat in chats %}
+                            {% if chat.chat_messages.count != 0 %}
+                            {% get_companion user chat as companion %}
+                                <a href="{% url 'messanger:messages' chat.id %}" class="message list-group-item list-group-item-action">
+                                    {% if not chat.chat_messages.last.is_read and chat.chat_messages.last.sender != user %}<div class="mescolor badge float-right">5</div>{% endif %}
+                                    <div class="d-flex align-items-start">
+                                        <img class="img-xs rounded-circle"
+                                             src="{{ companion.profile.profile_pic }}" height="40"
+                                             class="img-xs rounded-circle mr-1" width="40">
+                                        <div class="flex-grow-1 ml-3">
+                                            {% if companion.profile %}{{ companion.profile.name }} {{ companion.profile.surname }}{% else %}{{companion.username}}{% endif %}
+                                            <div class="small"><span class="fas fa-circle chat-online"></span>
+                                                <span class="onlyline">{% if chat.chat_messages.last.sender == user %}вы: {% endif %}{{ chat.chat_messages.last.text }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                 </a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+
+                    </div>
+
+
+                    <div style="height: calc(96vh - 60px); padding-left: 0px;"
+                         class="col-20 col-lg-7 col-xl-8">
+
+                        {% if not main_chat %}
+                            <span style=" color: grey; display: flex; justify-content: center; margin-top: 45vh;">Выберите чат</span>
+                        {% else %}
+                            {% include "chat.html" %}
+                        {% endif %}
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+
+{% endblock container %}
+
+{% block script %}
+<script> $("#chatbox").prop({ scrollTop: $("#chatbox").prop("scrollHeight") });</script>
+{% endblock script %}

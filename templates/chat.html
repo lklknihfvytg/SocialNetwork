@@ -1,0 +1,140 @@
+{% load static%}
+{% load messanger_tags %}
+
+<div style="height: 60px;" class="py-1 bottom-color d-none d-lg-block">
+    <div class="px-4">
+        <div class="d-flex align-items-center py-1">
+            {% get_companion user main_chat as companion %}
+            <div class="position-relative">
+                <a href="{% url 'network:user_profile_by_username' companion.username %}">
+                    <img src="{{ companion.profile.profile_pic }}"
+                         class="img-xs rounded-circle mr-1" alt="Sharon Lessman" width="40"
+                         height="40">
+                </a>
+            </div>
+            <div class="flex-grow-1 pl-3">
+                <strong><a class="color" href="{% url 'network:user_profile_by_username' companion.username %}">{% if companion.profile %}{{ companion.profile.name }} {{ companion.profile.surname }}{% else %}{{companion.username}}{% endif %}</a></strong>
+            </div>
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                     viewBox="0 0 26 26" fill="none" stroke="currentColor"
+                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                     class="feather feather-more-horizontal feather-lg">
+                    <circle cx="8" cy="18" r="0.5"></circle>
+                    <circle cx="14" cy="18" r="0.5"></circle>
+                    <circle cx="2" cy="18" r="0.5"></circle>
+                </svg>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="position-relative">
+    <div style="padding-top: 10px;" id="chatbox" class="chat-messages px-3">
+
+        {% for message in main_chat.chat_messages.all %}
+        <div class="chat-message-{% if message.sender == user %}right{% else %}left{% endif %} mb-2">
+            <div>
+                <img class="img-xs rounded-circle"
+                     src="{{ message.sender.profile.profile_pic }}" height="40"
+                     class="img-xs rounded-circle mr-1" alt="Chris Wood" width="40">
+                <div class="text-muted small text-nowrap mt-1">{{ message.creation_time|date:"H:i"}}</div>
+            </div>
+            <div style="max-width: 30vw; min-width: 10px;">
+                <div class="mescolor flex-shrink-1 rounded py-2 px-3 m{% if message.sender == user %}r{% else %}l{% endif %}-3">
+                    {{ message.text }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<div class="flex-grow-0 py-2 px-2 top-color">
+    <form action="{% url 'messanger:messages' main_chat.id %}?next={{request.path}}" method="post">
+        <div class="input-group">
+            {% csrf_token %}
+            <input name="text" type="text" class="form-control round"
+                   placeholder="Type your message">
+            <button class="button-send" type="submit">
+                <svg
+                        xmlns:dc="http://purl.org/dc/elements/1.1/"
+                        xmlns:cc="http://creativecommons.org/ns#"
+                        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                        xmlns:svg="http://www.w3.org/2000/svg"
+                        xmlns="http://www.w3.org/2000/svg"
+                        xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                        xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                        width="30"
+                        height="30"
+                        viewBox="0 0 30 30"
+                        version="1.1"
+                        id="svg822"
+                        inkscape:version="0.92.4 (f8dce91, 2019-08-02)"
+                        sodipodi:docname="send.svg">
+                    <defs
+                            id="defs816"/>
+                    <sodipodi:namedview
+                            id="base"
+                            pagecolor="#ffffff"
+                            bordercolor="#666666"
+                            borderopacity="1.0"
+                            inkscape:pageopacity="0.0"
+                            inkscape:pageshadow="2"
+                            inkscape:zoom="17.833333"
+                            inkscape:cx="15"
+                            inkscape:cy="15"
+                            inkscape:document-units="px"
+                            inkscape:current-layer="layer1"
+                            showgrid="true"
+                            units="px"
+                            inkscape:window-width="1366"
+                            inkscape:window-height="713"
+                            inkscape:window-x="0"
+                            inkscape:window-y="0"
+                            inkscape:window-maximized="1"
+                            showguides="true"
+                            inkscape:guide-bbox="true">
+                        <inkscape:grid
+                                type="xygrid"
+                                id="grid816"/>
+                        <sodipodi:guide
+                                position="14,30"
+                                orientation="0,1"
+                                id="guide888"
+                                inkscape:locked="false"/>
+                    </sodipodi:namedview>
+                    <metadata
+                            id="metadata819">
+                        <rdf:RDF>
+                            <cc:Work
+                                    rdf:about="">
+                                <dc:format>image/svg+xml</dc:format>
+                                <dc:type
+                                        rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+                                <dc:title>
+
+                                </dc:title>
+                            </cc:Work>
+                        </rdf:RDF>
+                    </metadata>
+                    <g
+                            inkscape:label="Layer 1"
+                            inkscape:groupmode="layer"
+                            id="layer1"
+                            transform="translate(0,-289.0625)">
+                        <path
+                                inkscape:connector-curvature="0"
+                                class="send"
+                                d="m 25.5,304.0625 c 0,-1.11962 -1,-1.5 -1,-1.5 l -20,-8 3.60352,8.56055 L 17.5,304.0625 8.10352,305.00195 4.5,313.5625 l 20,-8 c 0,0 1,-0.38038 1,-1.5 z"
+                                id="rect820"/>
+                    </g>
+                </svg>
+            </button>
+        </div>
+    </form>
+</div>
+
+
+
