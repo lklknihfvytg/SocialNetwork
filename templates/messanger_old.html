@@ -24,12 +24,12 @@
                             </div>
                         </div>
 
-                        <div style="height: calc(96vh - (60px + 70px)); overflow: auto; border-0;">
+                        <div id="subject" style="height: calc(96vh - (60px + 70px)); overflow: auto; border-0;">
                             {% for chat in chats %}
                             {% if chat.chat_messages.count != 0 %}
                             {% get_companion user chat as companion %}
                                 <a href="{% url 'messanger:messages' chat.id %}" class="message list-group-item list-group-item-action">
-                                    {% if not chat.chat_messages.last.is_read and chat.chat_messages.last.sender != user %}<div class="mescolor badge float-right">5</div>{% endif %}
+                                    {% if not chat.chat_messages.last.is_read and chat.chat_messages.last.sender != user %}<div class="mescolor badge float-right">{% unreads user chat %}</div>{% endif %}
                                     <div class="d-flex align-items-start">
                                         <img class="img-xs rounded-circle"
                                              src="{{ companion.profile.profile_pic }}" height="40"
@@ -69,10 +69,10 @@
 
 
 
-<textarea id="chat-log" cols="100" rows="20"></textarea><br>
-<input id="chat-message-input" type="text" size="100"><br>
-<input id="chat-message-submit" type="button" value="Send">
-<input id="chat-message" type="button" value="my">
+<!--<textarea id="chat-log" cols="100" rows="20"></textarea><br>-->
+<!--<input id="chat-message-input" type="text" size="100"><br>-->
+<!--<input id="chat-message-submit" type="button" value="Send">-->
+<!--<input id="chat-message" type="button" value="my">-->
 {{ user.username|json_script:"username" }}
 {{ user.id|json_script:"user_id" }}
 
@@ -84,50 +84,58 @@
 <script> $("#chatbox").prop({ scrollTop: $("#chatbox").prop("scrollHeight") });</script>
 
 <script>
-    const username = JSON.parse(document.getElementById('username').textContent);
-    const user_id = JSON.parse(document.getElementById('user_id').textContent);
+    //const username = JSON.parse(document.getElementById('username').textContent);
+    //const user_id = JSON.parse(document.getElementById('user_id').textContent);
 
-    const chatSocket = new WebSocket(
-        'ws://'
-        + window.location.host
-        + '/ws/chats/'
-        + username
-        + '/'
-    );
+    if (username && user_id) {
+        const chatSocket1 = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/chats/'
+            + username
+            + '/'
+        );
 
-    chatSocket.onmessage = function(e) {
-        const data = JSON.stringify(JSON.parse(e.data), null, 4);
-        console.log(data);
-        document.querySelector('#chat-log').value += (data + '\n'); // += // data.message
-    };
+        chatSocket1.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            console.log(JSON.stringify(data, null, 4));
+            chats = ``;
+            for(let i = 0; i < data.length; i++) {
+                let d = data[i];
+                if (d.unreads > 0)
+                    unreads = `<div class="mescolor badge float-right">${d.unreads}</div>`;
+                else
+                    unreads = '';
+                let fragment = `<a href="/m/${d.chat_id}/" class="message list-group-item list-group-item-action">
+                                    ${unreads}
+                                    <div class="d-flex align-items-start">
+                                        <img class="img-xs rounded-circle"
+                                            src="${d.pic}" height="40"
+                                            class="img-xs rounded-circle mr-1" width="40">
+                                        <div class="flex-grow-1 ml-3">
+                                            ${d.name}
+                                            <div class="small"><span class="fas fa-circle chat-online"></span>
+                                                <span class="onlyline">${d.last_message}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>`;
+                chats += fragment;
+            }
+            const subject = document.querySelector("#subject");
+            $("#subject").html("");
+            subject.insertAdjacentHTML("afterbegin", chats);
+        };
 
-    chatSocket.onclose = function(e) {
-        console.error('Chat socket closed unexpectedly');
-    };
+        const interval1 = setInterval(function() {
+            if (chatSocket1.readyState !== WebSocket.CLOSED)
+                chatSocket1.send(JSON.stringify({'user_id': user_id}));
+        }, 3000);
 
-    document.querySelector('#chat-message-input').focus();
-    document.querySelector('#chat-message-input').onkeyup = function(e) {
-        if (e.keyCode === 13) {  // enter, return
-            document.querySelector('#chat-message-submit').click();
-        }
-    };
-
-    document.querySelector('#chat-message-submit').onclick = function(e) {
-        const messageInputDom = document.querySelector('#chat-message-input');
-        const message = messageInputDom.value;
-        chatSocket.send(JSON.stringify({
-            'user_id': user_id
-        }));
-        messageInputDom.value = '';
-    };
-
-    document.querySelector('#chat-message').onclick = function(e) {
-        clearInterval(interval);
-    };
-
-    const interval = setInterval(function() {
-        chatSocket.send(JSON.stringify({'user_id': 'id'}));
-    }, 3000);
+        chatSocket1.onclose = function(e) {
+            console.error('Chat socket 1 closed unexpectedly');
+        };
+    }
 
 </script>
 {% endblock script %}
