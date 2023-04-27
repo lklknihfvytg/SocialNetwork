@@ -40,8 +40,7 @@ def index(request):
     #     print(chat)
     #     print(message)
 
-    posts = Post.objects.all()[:20]
-    return render(request, 'feed.html', {'posts': posts})
+    return redirect('network:feed')
 
 
 def my_profile(request):
@@ -51,8 +50,8 @@ def my_profile(request):
     return render(request, 'profile_posts.html', {'user': request.user})
 
 
-def user_profile_by_id(request, profile_id):
-    user = User.objects.get(profile__id=profile_id)
+def user_profile_by_id(request, user_id):
+    user = User.objects.get(id=user_id)
     return render(request, 'profile_posts.html', {'user': user})
 
 
@@ -86,6 +85,19 @@ def edit_profile(request):
 
 
 def feed(request):
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return render(request, 'login.html')
+        try:
+            redirect_to = request.GET.get('next', '')
+        except Exception:
+            redirect_to = 'network:feed'
+
+        post = Post(user=request.user, text=request.POST['text'])
+        post.save()
+
+        return redirect(redirect_to)
+
     posts = Post.objects.all()[:20]
     return render(request, 'feed.html', {'posts': posts})
 

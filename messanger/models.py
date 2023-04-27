@@ -3,7 +3,11 @@ from django.db import models
 
 
 class Chat(models.Model):
-    members = models.ManyToManyField(User)
+    members = models.ManyToManyField(User, related_name='user_chats')
+
+    def __str__(self):
+        users = self.members.all()
+        return f'{users[0]} ______ {users[1]}'
 
 
 class Message(models.Model):
@@ -17,4 +21,7 @@ class Message(models.Model):
         ordering = ['creation_time']
 
     def __str__(self):
-        return self.text
+        for user in self.chat.members.all():
+            if user != self.sender:
+                break
+        return f'{self.sender.username} --> {user.username} ___ {self.text}'

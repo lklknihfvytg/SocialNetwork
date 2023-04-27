@@ -5,14 +5,25 @@
 
 <div class="col-10">
     <div class="row">
-        <div class="col-8">
+        <div class="col-7">
             <div class="row">
+                <div class="col-12 grid-margin">
+                    <div class="card rounded">
+                        <div class="card-child">
+                            <form action="{% url 'network:feed' %}?next={{request.path}}" method="post">
+                            {% csrf_token %}
+                                <input type="text" class="profile post" name="text" placeholder="Что у Вас нового?" autocomplete="off"></label>
+                                <br><input type="submit" style="margin: 0 180px;" class="centering btn btn-primary btn-icon-text btn-edit-profile" value="Опубликовать">
+                            </form>
+                        </div>
+                    </div>
+                </div>
             {% for post in posts %}
                 {% include "post.html" %}
             {% endfor %}
             </div>
         </div>
-        <div class="col-4">
+        <div class="col-5">
                             <div class="row">
                                 <div class="col-12 grid-margin">
                                     <div class="card rounded">
@@ -79,7 +90,7 @@
                                                     <div class="col-md-4">
                                                         <figure class="mb-0">
                                                             <img class="img-fluid"
-                                                                 src="https://bootdey.com/img/Content/avatar/avatar9.png"
+                                                                 src="https://bootdey.com/img/Content/avatar/avatar8.png"
                                                                  alt="">
                                                         </figure>
                                                     </div>

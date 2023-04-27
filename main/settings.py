@@ -36,12 +36,14 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv('DEBUG'))
 
-ALLOWED_HOSTS = ['192.168.0.106', '127.0.0.1']
+ALLOWED_HOSTS = ['192.168.0.106', '127.0.0.1', '195.161.62.100', 'socialnetworkk.ru']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    # ------------
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -53,6 +55,7 @@ INSTALLED_APPS = [
     'authentication',
     'posts',
     'messanger',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -86,6 +89,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'main.wsgi.application'
+ASGI_APPLICATION = 'main.asgi.application'
 
 
 # Database
@@ -123,6 +127,17 @@ else:
             'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
         },
     ]
+
+
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             "hosts": [CHANNEL_REDIS_HOST],
+#             "symmetric_encryption_keys": [SECRET_KEY],
+#         },
+#     },
+# }
 
 
 # Internationalization

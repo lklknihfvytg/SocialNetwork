@@ -1,17 +1,17 @@
 
         <div class="col-12 grid-margin">
             <div class="card rounded">
-                <div class="card-header">
-                    <div class="d-flex align-items-center justify-content-between">
+<!--                <div class="card-header">-->
+                    <div style="padding: 10px 20px 10px 20px;" class="d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center">
                             <a href="{% url 'network:user_profile_by_username' post.user.username %}">
                                 <img class="img-xs rounded-circle"
                                      src="{{ post.user.profile.profile_pic }}" alt="">
                             </a>
                             <div class="ml-2">
-                                <p><a class="color" style="text-decoration:none;" href="{% url 'network:user_profile_by_username' post.user.username %}">{{ post.user.profile.name }} {{ post.user.profile.surname }}</a></p>
+                                <p><a class="color" style="padding-top: 20px; text-decoration:none;" href="{% url 'network:user_profile_by_username' post.user.username %}">{{ post.user.profile.name }} {{ post.user.profile.surname }}</a></p>
 <!--                                                        <p class="tx-11 text-muted">1 min ago</p>-->
-                                <p class="tx-11 text-muted">{{ post.creation_time }}</p>
+                                <p style="font-size: 9; font-weight: 10;" class="tx-11 text-muted"><small>{{ post.creation_time }}</small></p>
                             </div>
                         </div>
                         <div class="dropdown">
@@ -78,18 +78,20 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <p class="mb-3 tx-14">{% if post.is_tiny %}<h4>{{ post.text }}</h4>{% else %}{{ post.text }}{% endif %}</p>
+<!--                </div>-->
+<!--                <div class="card-body">-->
+                    <div style="padding-left: 20px; padding-right: 20px;">
+                    {% if post.is_tiny %}<h4>{{ post.text }}</h4>{% else %}<p class="mb-3 tx-14">{{ post.text }}</p>{% endif %}
                     {% if post.post_pic %}
                     <img class="img-fluid" src="{{ post.post_pic }}"
                          alt="">
                     {% endif %}
-                </div>
-                <div class="card-footer">
-                    <div class="d-flex post-actions">
+                    </div>
+<!--                </div>-->
+<!--                <div class="card-footer">-->
+                    <div style="padding: 0 0 10px 20px;" class="d-flex post-actions">
                         <a href="{% url 'posts:post_like' %}?next={{request.path}}&post_id={{post.id}}" class="d-flex align-items-center text-muted mr-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                  viewBox="0 0 24 24"
                                  {% if request.user in post.likes.all %}
                                  fill="red" stroke="red"
@@ -101,20 +103,18 @@
                                  class="feather feather-heart icon-md">
                                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
                             </svg>
-                            <p class="d-none d-md-block ml-2">Like</p>
                         </a>
                         <a href="javascript:;" class="d-flex align-items-center text-muted mr-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                  viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                  stroke-width="2"
                                  stroke-linecap="round" stroke-linejoin="round"
                                  class="feather feather-message-square icon-md">
                                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                             </svg>
-                            <p class="d-none d-md-block ml-2">Comment</p>
                         </a>
                         <a href="javascript:;" class="d-flex align-items-center text-muted">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                  viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                  stroke-width="2"
                                  stroke-linecap="round" stroke-linejoin="round"
@@ -123,9 +123,8 @@
                                 <polyline points="16 6 12 2 8 6"></polyline>
                                 <line x1="12" y1="2" x2="12" y2="15"></line>
                             </svg>
-                            <p class="d-none d-md-block ml-2">Share</p>
                         </a>
                     </div>
-                </div>
+<!--                </div>-->
             </div>
         </div>

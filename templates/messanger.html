@@ -24,12 +24,12 @@
                             </div>
                         </div>
 
-                        <div style="height: calc(96vh - (60px + 70px)); overflow: auto; border-0;">
+                        <div id="subject" style="height: calc(96vh - (60px + 70px)); overflow: auto; border-0;">
                             {% for chat in chats %}
                             {% if chat.chat_messages.count != 0 %}
                             {% get_companion user chat as companion %}
-                                <a href="{% url 'messanger:messages' chat.id %}" class="message list-group-item list-group-item-action">
-                                    {% if not chat.chat_messages.last.is_read and chat.chat_messages.last.sender != user %}<div class="mescolor badge float-right">5</div>{% endif %}
+                                <a id="{{chat.id}}" style="cursor: pointer;" class="message list-group-item list-group-item-action">
+                                    {% if not chat.chat_messages.last.is_read and chat.chat_messages.last.sender != user %}<div class="mescolor badge float-right">{% unreads user chat %}</div>{% endif %}
                                     <div class="d-flex align-items-start">
                                         <img class="img-xs rounded-circle"
                                              src="{{ companion.profile.profile_pic }}" height="40"
@@ -49,7 +49,7 @@
                     </div>
 
 
-                    <div style="height: calc(96vh - 60px); padding-left: 0px;"
+                    <div id="chat" style="height: calc(96vh - 60px); padding-left: 0px;"
                          class="col-20 col-lg-7 col-xl-8">
 
                         {% if not main_chat %}
@@ -69,12 +69,13 @@
 
 
 
-<textarea id="chat-log" cols="100" rows="20"></textarea><br>
-<input id="chat-message-input" type="text" size="100"><br>
-<input id="chat-message-submit" type="button" value="Send">
-<input id="chat-message" type="button" value="my">
+<!--<textarea id="chat-log" cols="100" rows="20"></textarea><br>-->
+<!--<input id="chat-message-input" type="text" size="100"><br>-->
+<!--<input id="chat-message-submit" type="button" value="Send">-->
+<!--<input id="chat-message" type="button" value="my">-->
 {{ user.username|json_script:"username" }}
 {{ user.id|json_script:"user_id" }}
+{{ request.path|json_script:"path" }}
 
 
 
@@ -84,50 +85,270 @@
 <script> $("#chatbox").prop({ scrollTop: $("#chatbox").prop("scrollHeight") });</script>
 
 <script>
-    const username = JSON.parse(document.getElementById('username').textContent);
-    const user_id = JSON.parse(document.getElementById('user_id').textContent);
+    //const username = JSON.parse(document.getElementById('username').textContent);
+    //const user_id = JSON.parse(document.getElementById('user_id').textContent);
+    const path = JSON.parse(document.getElementById('path').textContent);
+    let last_message = -1;
+    let unread_messages = -1;
+    let data = null;
+    let opened_chat = null;
 
-    const chatSocket = new WebSocket(
-        'ws://'
-        + window.location.host
-        + '/ws/chats/'
-        + username
-        + '/'
-    );
+    if (username && user_id) {
+        const chatSocket1 = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/chats/'
+            + username
+            + '/'
+        );
 
-    chatSocket.onmessage = function(e) {
-        const data = JSON.stringify(JSON.parse(e.data), null, 4);
-        console.log(data);
-        document.querySelector('#chat-log').value += (data + '\n'); // += // data.message
-    };
+        chatSocket1.onmessage = function(e) {
+             data = JSON.parse(e.data);
+             let count = 0;
+             for(let i = 0; i < data.length; i++)
+                count += data[i].unreads;
+             //console.log(data[0]);
+             //console.log(`unread - ${unread_messages}, data - ${count}`);
+             if (data[0].lm_id != last_message || unread_messages != count) {
+                last_message = data[0].lm_id;
+                unread_messages = count;
+                //console.log(JSON.stringify(data, null, 4));
+                chats = ``;
+                for(let i = 0; i < data.length; i++) {
+                    let d = data[i];
+                    if (d.unreads > 0)
+                        unreads = `<div class="mescolor badge float-right">${d.unreads}</div>`;
+                    else
+                        unreads = '';
+                    let fragment = `<a id="${d.chat_id}" onClick="open_chat(this.id)" style="cursor: pointer;" class="message list-group-item list-group-item-action">
+                                        ${unreads}
+                                        <div class="d-flex align-items-start">
+                                            <img class="img-xs rounded-circle"
+                                                src="${d.pic}" height="40"
+                                                class="img-xs rounded-circle mr-1" width="40">
+                                            <div class="flex-grow-1 ml-3">
+                                                ${d.name}
+                                                <div class="small"><span class="fas fa-circle chat-online"></span>
+                                                    <span class="onlyline">${d.last_message}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>`;
+                    chats += fragment;
+                }
+                const subject = document.querySelector("#subject");
+                $("#subject").html("");
+                subject.insertAdjacentHTML("afterbegin", chats);
 
-    chatSocket.onclose = function(e) {
-        console.error('Chat socket closed unexpectedly');
-    };
+                if (opened_chat) {
+                    messages = ``;
+                    for(let i = 0; i < data.length; i++)
+                        if (data[i].chat_id == opened_chat)
+                            chat = data[i];
+                    for(let i = chat.messages.length - 1; i >= 0; i--) {
+                        if (chat.messages[i].position === 'r') {
+                            position = 'right';
+                            pic = chat.user_pic;
+                        } else {
+                            position = 'left';
+                            pic = chat.pic;
+                        }
+                        message = `<div class="chat-message-${position} mb-2">
+                                    <div>
+                                        <img class="img-xs rounded-circle"
+                                             src="${pic}" height="40"
+                                             class="img-xs rounded-circle mr-1" width="40">
+                                        <div class="text-muted small text-nowrap mt-1">${chat.messages[i].time}</div>
+                                    </div>
+                                    <div style="max-width: 30vw; min-width: 10px;">
+                                        <div class="mescolor flex-shrink-1 rounded py-2 px-3 m${chat.messages[i].position}-3">
+                                            ${chat.messages[i].text}
+                                        </div>
+                                    </div>
+                                </div>`;
+                        messages += message;
+                    }
+                    const subject = document.querySelector("#chatbox");
+                    $("#chatbox").html("");
+                    subject.insertAdjacentHTML("afterbegin", messages);
+                }
+             }
+        };
 
-    document.querySelector('#chat-message-input').focus();
-    document.querySelector('#chat-message-input').onkeyup = function(e) {
-        if (e.keyCode === 13) {  // enter, return
-            document.querySelector('#chat-message-submit').click();
-        }
-    };
+        const interval1 = setInterval(function() {
+            if (chatSocket1.readyState !== WebSocket.CLOSED)
+                chatSocket1.send(JSON.stringify({'user_id': user_id, 'opened_chat': opened_chat, 'type': 'reg'}));
+        }, 1000);
 
-    document.querySelector('#chat-message-submit').onclick = function(e) {
-        const messageInputDom = document.querySelector('#chat-message-input');
-        const message = messageInputDom.value;
-        chatSocket.send(JSON.stringify({
-            'user_id': user_id
-        }));
-        messageInputDom.value = '';
-    };
+        chatSocket1.onclose = function(e) {
+            console.error('Chat socket 1 closed unexpectedly');
+        };
 
-    document.querySelector('#chat-message').onclick = function(e) {
-        clearInterval(interval);
-    };
+        function open_chat(chat_id) {
+            if (data) {
+                opened_chat = chat_id;
+                console.log(data);
+                for(let i = 0; i < data.length; i++)
+                    if (data[i].chat_id == chat_id)
+                        chat = data[i];
+                //let chat = data[chat_id];
+                let head = `<div style="height: 60px;" class="py-1 bottom-color d-none d-lg-block">
+                            <div class="px-4">
+                                <div class="d-flex align-items-center py-1">
+                                    <div class="position-relative">
+                                        <a href="/user/${chat.companion_id}/">
+                                            <img src="${chat.pic}"
+                                                 class="img-xs rounded-circle mr-1" width="40"
+                                                 height="40">
+                                        </a>
+                                    </div>
+                                    <div class="flex-grow-1 pl-3">
+                                        <strong><a class="color" href="/user/${chat.companion_id}/">${chat.name}</a></strong>
+                                    </div>
+                                    <div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                             viewBox="0 0 26 26" fill="none" stroke="currentColor"
+                                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                             class="feather feather-more-horizontal feather-lg">
+                                            <circle cx="8" cy="18" r="0.5"></circle>
+                                            <circle cx="14" cy="18" r="0.5"></circle>
+                                            <circle cx="2" cy="18" r="0.5"></circle>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="position-relative">
+                            <div style="padding-top: 10px;" id="chatbox" class="chat-messages px-3">`;
+                for(let i = chat.messages.length - 1; i >= 0; i--) {
+                    if (chat.messages[i].position === 'r') {
+                        position = 'right';
+                        pic = chat.user_pic;
+                    } else {
+                        position = 'left';
+                        pic = chat.pic;
+                    }
+                    message = `<div class="chat-message-${position} mb-2">
+                                <div>
+                                    <img class="img-xs rounded-circle"
+                                         src="${pic}" height="40"
+                                         class="img-xs rounded-circle mr-1" width="40">
+                                    <div class="text-muted small text-nowrap mt-1">${chat.messages[i].time}</div>
+                                </div>
+                                <div style="max-width: 30vw; min-width: 10px;">
+                                    <div class="mescolor flex-shrink-1 rounded py-2 px-3 m${chat.messages[i].position}-3">
+                                        ${chat.messages[i].text}
+                                    </div>
+                                </div>
+                            </div>`;
+                    head += message;
+                }
+                bottom = `</div>
+                    </div>
 
-    const interval = setInterval(function() {
-        chatSocket.send(JSON.stringify({'user_id': 'id'}));
-    }, 3000);
+                    <div class="flex-grow-0 py-2 px-2 top-color">
+                            <div class="input-group">
+                                <input id="chat-message-input" name="text" autocomplete="off" type="text" class="form-control round">
+                                <button id="submit" class="button-send">
+                                    <svg
+                                            xmlns:dc="http://purl.org/dc/elements/1.1/"
+                                            xmlns:cc="http://creativecommons.org/ns#"
+                                            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                                            xmlns:svg="http://www.w3.org/2000/svg"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+                                            xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+                                            width="30"
+                                            height="30"
+                                            viewBox="0 0 30 30"
+                                            version="1.1"
+                                            id="svg822"
+                                            inkscape:version="0.92.4 (f8dce91, 2019-08-02)"
+                                            sodipodi:docname="send.svg">
+                                        <defs
+                                                id="defs816"/>
+                                        <sodipodi:namedview
+                                                id="base"
+                                                pagecolor="#ffffff"
+                                                bordercolor="#666666"
+                                                borderopacity="1.0"
+                                                inkscape:pageopacity="0.0"
+                                                inkscape:pageshadow="2"
+                                                inkscape:zoom="17.833333"
+                                                inkscape:cx="15"
+                                                inkscape:cy="15"
+                                                inkscape:document-units="px"
+                                                inkscape:current-layer="layer1"
+                                                showgrid="true"
+                                                units="px"
+                                                inkscape:window-width="1366"
+                                                inkscape:window-height="713"
+                                                inkscape:window-x="0"
+                                                inkscape:window-y="0"
+                                                inkscape:window-maximized="1"
+                                                showguides="true"
+                                                inkscape:guide-bbox="true">
+                                            <inkscape:grid
+                                                    type="xygrid"
+                                                    id="grid816"/>
+                                            <sodipodi:guide
+                                                    position="14,30"
+                                                    orientation="0,1"
+                                                    id="guide888"
+                                                    inkscape:locked="false"/>
+                                        </sodipodi:namedview>
+                                        <metadata
+                                                id="metadata819">
+                                            <rdf:RDF>
+                                                <cc:Work
+                                                        rdf:about="">
+                                                    <dc:format>image/svg+xml</dc:format>
+                                                    <dc:type
+                                                            rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+                                                    <dc:title>
+
+                                                    </dc:title>
+                                                </cc:Work>
+                                            </rdf:RDF>
+                                        </metadata>
+                                        <g
+                                                inkscape:label="Layer 1"
+                                                inkscape:groupmode="layer"
+                                                id="layer1"
+                                                transform="translate(0,-289.0625)">
+                                            <path
+                                                    inkscape:connector-curvature="0"
+                                                    class="send"
+                                                    d="m 25.5,304.0625 c 0,-1.11962 -1,-1.5 -1,-1.5 l -20,-8 3.60352,8.56055 L 17.5,304.0625 8.10352,305.00195 4.5,313.5625 l 20,-8 c 0,0 1,-0.38038 1,-1.5 z"
+                                                    id="rect820"/>
+                                        </g>
+                                    </svg>
+                                </button>
+                            </div>
+                    </div>`;
+
+                head += bottom
+                const subject = document.querySelector("#chat");
+                $("#chat").html("");
+                subject.insertAdjacentHTML("afterbegin", head);
+                $("#chatbox").prop({ scrollTop: $("#chatbox").prop("scrollHeight") });
+                window.history.pushState({"html":`/m/${chat.chat_id}/`,"pageTitle":"sdfdsf"},"", `/m/${chat.chat_id}/`);
+
+                document.querySelector('#chat-message-input').onkeyup = function(e) {
+                    if (e.keyCode === 13) {  // enter, return
+                        document.querySelector('#submit').click();
+                    }
+                };
+                document.querySelector('#submit').onclick = function(e) {
+                    const messageInputDom = document.querySelector('#chat-message-input');
+                    const message = messageInputDom.value
+                    messageInputDom.value = '';
+                    if (chatSocket1.readyState !== WebSocket.CLOSED)
+                        chatSocket1.send(JSON.stringify({'user_id': user_id, 'opened_chat': opened_chat, 'type': 'mes', 'text': message}));
+                };
+            }
+        };
+    }
 
 </script>
 {% endblock script %}

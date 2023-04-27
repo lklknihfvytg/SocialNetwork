@@ -13,7 +13,6 @@ def post_like(request):
     if not request.user.is_authenticated:
         return render(request, 'login.html')
 
-    print(request.GET)
     try:
         redirect_to = request.GET.get('next', '')
         post_id = request.GET.get('post_id', '')

@@ -21,7 +21,8 @@ def show_chats(request):
     #     message = Message(sender=sender, text=('Привет'+str(i)), chat=chat)
     #     message.save()
 
-    chats = Chat.objects.filter(members__in=[request.user])
+    # chats = Chat.objects.filter(members__in=[request.user])
+    chats = sorted(Chat.objects.filter(members__in=[request.user]), key=lambda c: c.chat_messages.last().id, reverse=True)
     return render(request, 'messanger.html', {'user': request.user, 'chats': chats})
 
 
@@ -52,7 +53,7 @@ class MessagesView(View):
         except Chat.DoesNotExist:
             chat = None
 
-        chats = Chat.objects.filter(members__in=[request.user])
+        chats = sorted(Chat.objects.filter(members__in=[request.user]), key=lambda c: c.chat_messages.last().id, reverse=True)
         return render(request, 'messanger.html', {'user': request.user, 'chats': chats, 'main_chat': chat})
 
     def post(self, request, chat_id):

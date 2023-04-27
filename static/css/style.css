@@ -42,6 +42,11 @@ header::after {
 }*/
 
 
+p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
 .centering {
     margin: 0 220px;
 }
@@ -171,10 +176,11 @@ card-header-my {
 input.profile {
     font-size: 11pt;
     background: transparent;
-    border: 1px solid #c5c7cb;
+    border: 1px solid #DFDFDF;
     border-radius: .45rem;
     padding: 11px;
 }
+
 ::-moz-placeholder {
    line-height:60px;
 }
@@ -197,6 +203,12 @@ input.big {
     height: 140px;
     width: 280px;
     padding-bottom: 115px;
+}
+
+input.post {
+    height: 40px;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .profile-header {
@@ -411,7 +423,7 @@ img {
     padding: 0.875rem 1.5rem;
     margin-bottom: 0;
     background-color: rgba(0, 0, 0, 0);
-    border-bottom: 1px solid #DFDFDF;
+    border-bottom: 0px solid #DFDFDF;
 }
 
 .card-footer:last-child {
@@ -420,7 +432,7 @@ img {
 .card-footer {
     padding: 0.875rem 1.5rem;
     background-color: rgba(0, 0, 0, 0);
-    border-top: 1px solid #DFDFDF;
+    border-top: 0px solid #DFDFDF;
 }
 
 .grid-margin {
