@@ -6,7 +6,7 @@
                         <div class="d-flex align-items-center">
                             <a href="{% url 'network:user_profile_by_username' post.user.username %}">
                                 <img class="img-xs rounded-circle"
-                                     src="{{ post.user.profile.profile_pic }}" alt="">
+                                     src="{{ post.user.profile.profile_pic.url }}" alt="">
                             </a>
                             <div class="ml-2">
                                 <p><a class="color" style="padding-top: 20px; text-decoration:none;" href="{% url 'network:user_profile_by_username' post.user.username %}">{{ post.user.profile.name }} {{ post.user.profile.surname }}</a></p>

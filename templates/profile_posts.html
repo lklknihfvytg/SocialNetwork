@@ -10,12 +10,12 @@
 
 <!-- ========= // Posts \\ ========= -->
 
-<div class="col-7">
+<div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-7">
     <div class="row">
         <div class="col-12 grid-margin">
             <div class="card rounded">
                 <div class="card-child">
-                    <form action="{% url 'network:feed' %}?next={{request.path}}" method="post">
+                    <form action="{% url 'posts:create_post' %}?next={{request.path}}" method="post">
                     {% csrf_token %}
                         <input type="text" id="about" class="profile post" name="text" placeholder="Что у Вас нового?" autocomplete="off"></label>
                         <br><input type="submit" style="margin: 0 180px;" class="centering btn btn-primary btn-icon-text btn-edit-profile" value="Опубликовать">

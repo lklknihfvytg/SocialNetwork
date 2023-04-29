@@ -6,7 +6,7 @@
 {% block container %}
 
 
-<div class="col-10">
+<div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-10" style="font-size: 1.2vmax;">
     <main class="content">
         <div class="container p-0">
             <div class="card rounded">
@@ -14,7 +14,7 @@
 
 
                     <div style="height: calc(96vh - 60px); padding-right: 0px;"
-                         class="col-4 col-lg-5 col-xl-4 right-color">
+                         class="col-3 col-lg-4 col-xl-4 right-color">
 
                         <div style="height: 60px" class="px-2 d-none d-md-block bottom-color">
                             <div class="d-flex align-items-center">
@@ -32,7 +32,7 @@
                                     {% if not chat.chat_messages.last.is_read and chat.chat_messages.last.sender != user %}<div class="mescolor badge float-right">{% unreads user chat %}</div>{% endif %}
                                     <div class="d-flex align-items-start">
                                         <img class="img-xs rounded-circle"
-                                             src="{{ companion.profile.profile_pic }}" height="40"
+                                             src="{{ companion.profile.profile_pic.url }}" height="40"
                                              class="img-xs rounded-circle mr-1" width="40">
                                         <div class="flex-grow-1 ml-3">
                                             {% if companion.profile %}{{ companion.profile.name }} {{ companion.profile.surname }}{% else %}{{companion.username}}{% endif %}
@@ -50,7 +50,7 @@
 
 
                     <div id="chat" style="height: calc(96vh - 60px); padding-left: 0px;"
-                         class="col-20 col-lg-7 col-xl-8">
+                         class="col-9 col-lg-8 col-xl-8">
 
                         {% if not main_chat %}
                             <span style=" color: grey; display: flex; justify-content: center; margin-top: 45vh;">Выберите чат</span>

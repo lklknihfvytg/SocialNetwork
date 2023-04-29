@@ -14,8 +14,5 @@ urlpatterns = [
     path('feed', views.feed, name='feed'),
     path('edit_profile/', views.edit_profile, name='edit_profile'),
     path('theme', views.change_theme, name='change_theme'),
-    # path('receipt/', views.receipt, name='receipt'),
-    # path('receipt_done/', views.receipt_done, name='receipt_done'),
-    # path('receipt_add/', views.receipt_add, name='receipt_add'),
-    # path('table/', views.table, name='table'),
+    path('upload/', views.image_upload_view),
 ]

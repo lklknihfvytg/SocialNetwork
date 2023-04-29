@@ -26,6 +26,8 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+MEDIA_URL = '/static/img/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img/')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -36,7 +38,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.getenv('DEBUG'))
 
-ALLOWED_HOSTS = ['192.168.0.106', '127.0.0.1', '195.161.62.100', 'socialnetworkk.ru']
+ALLOWED_HOSTS = ['127.0.0.1', '217.107.219.149', 'socialnetworkk.ru']
 
 
 # Application definition

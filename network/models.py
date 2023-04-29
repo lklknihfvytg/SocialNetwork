@@ -23,7 +23,7 @@ class Profile(models.Model):
     about = models.CharField(max_length=128, blank=True)
     dark_theme = models.BooleanField(default=False)
     creation_time = models.DateTimeField(auto_now_add=True)
-    profile_pic = models.CharField(max_length=128, default=(settings.AVATAR_DIRS+'/default.jpg'))
+    profile_pic = models.ImageField(upload_to='avatar', default='avatar/default.jpg')
 
     def __str__(self):
         return self.name
@@ -36,13 +36,12 @@ def name_uppercase(sender, instance, *args, **kwargs):
     instance.city = instance.city.title()
 
 
-class Zavod(models.Model):
-    name = models.CharField(max_length=128, default='bmw')
+class Photo(models.Model):
+    title = models.CharField(max_length=36)
+    image = models.ImageField(upload_to='avatar', default='avatar/default.jpg')
 
-
-class Car(models.Model):
-    zavod = models.ForeignKey(Zavod, on_delete=models.CASCADE, related_name='car')
-    name = models.CharField(max_length=128)
+    def __str__(self):
+        return self.title
 
 
 # @receiver(post_save, sender=User)

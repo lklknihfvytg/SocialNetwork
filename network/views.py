@@ -3,8 +3,9 @@ from authentication.forms import ProfileForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 # from messanger.models import
-from .models import Profile
+from .models import Profile, Photo
 from posts.models import Post
+from .forms import ImageForm
 
 
 def index(request):
@@ -43,6 +44,18 @@ def index(request):
     return redirect('network:feed')
 
 
+def change_path():
+    profiles = Profile.objects.all()
+    ex = "user/Документы/Django"
+    r = "user1"
+    for profile in profiles:
+        s = profile.profile_pic
+        if ex in s:
+            profile.profile_pic = s.replace(ex, r)
+            profile.save()
+            print(profile.name)
+
+
 def my_profile(request):
     if not request.user.is_authenticated:
         return render(request, 'login.html')
@@ -64,40 +77,18 @@ def edit_profile(request):
     if not request.user.is_authenticated:
         return render(request, 'login.html')
     if request.method == 'POST':
-        profile_form = ProfileForm(request.POST)
-
+        profile_form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        print(request.FILES)
         if profile_form.is_valid():
-            try:
-                profile = request.user.profile
-                profile.name = profile_form.cleaned_data['name']
-                profile.surname = profile_form.cleaned_data['surname']
-                profile.about = profile_form.cleaned_data['about']
-                profile.city = profile_form.cleaned_data['city']
-                profile.date_of_birth = profile_form.cleaned_data['date_of_birth']
-                profile.save()
-            except Profile.DoesNotExist:
-                profile = profile_form.save(commit=False)
-                profile.user = request.user
-                profile.save()
-            return render(request, 'edit_profile.html', {'user': request.user})
+            form = profile_form.save()
+            print(form)
+            print('======================================')
+            return render(request, 'profile_about.html', {'user': request.user})
         messages.success(request, 'Ошибка в данных')
     return render(request, 'edit_profile.html', {'user': request.user})
 
 
 def feed(request):
-    if request.method == 'POST':
-        if not request.user.is_authenticated:
-            return render(request, 'login.html')
-        try:
-            redirect_to = request.GET.get('next', '')
-        except Exception:
-            redirect_to = 'network:feed'
-
-        post = Post(user=request.user, text=request.POST['text'])
-        post.save()
-
-        return redirect(redirect_to)
-
     posts = Post.objects.all()[:20]
     return render(request, 'feed.html', {'posts': posts})
 
@@ -122,3 +113,21 @@ def change_theme(request):
         redirect_to = 'network:feed'
 
     return redirect(redirect_to)
+
+
+def image_upload_view(request):
+    if request.method == 'POST':
+        print(request.FILES)
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            # form.save()
+            # photo = Photo(title=form.cleaned_data['title'], image=form.cleaned_data['image'])
+            photo = Photo(title=request.POST['title'], image=request.FILES['image'])
+            photo.save()
+            img_obj = form.instance
+            return render(request, 'photo.html', {'form': form, 'img_obj': img_obj})
+        photos = Photo.objects.all()
+    else:
+        form = ImageForm()
+        photos = Photo.objects.all()
+    return render(request, 'photo.html', {'form': form, 'photos': photos})

@@ -2,6 +2,22 @@ from django.shortcuts import render, redirect
 from posts.models import Post, PostLike
 
 
+def create_post(request):
+    redirect_to = 'network:feed'
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return render(request, 'login.html')
+        try:
+            redirect_to = request.GET.get('next', '')
+        except Exception:
+            redirect_to = 'network:feed'
+
+        post = Post(user=request.user, text=request.POST['text'])
+        post.save()
+
+    return redirect(redirect_to)
+
+
 def post_by_id(request):
     if not request.user.is_authenticated:
         return render(request, 'login.html')

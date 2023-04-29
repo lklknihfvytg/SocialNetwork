@@ -77,10 +77,10 @@ def chat_serializer(user_id):
             'last_message': 'вы: ' + messages.last().text if messages.last().sender.id == user_id else messages.last().text,
             'lm_id': messages.last().id,
             'unreads': unreads,
-            'pic': companion.profile.profile_pic,
+            'pic': companion.profile.profile_pic.url,
             'chat_id': chat.id,
             'companion_id': companion.id,
             'messages': mes,
-            'user_pic': User.objects.get(id=user_id).profile.profile_pic
+            'user_pic': User.objects.get(id=user_id).profile.profile_pic.url
         })
     return json.dumps(result)

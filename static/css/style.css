@@ -67,6 +67,10 @@ p {
     width: 50%;
 }
 
+.smallpadding {
+    padding: 5px;
+}
+
 .padding {
     padding: 15px;
 }
