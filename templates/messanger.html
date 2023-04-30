@@ -19,14 +19,13 @@
                         <div style="height: 60px" class="px-2 d-none d-md-block bottom-color">
                             <div class="d-flex align-items-center">
                                 <div class="flex-grow-1">
-                                    <input type="text" class="round form-control my-2" placeholder="Search...">
+                                    <input type="text" class="round form-control my-2" placeholder="Поиск...">
                                 </div>
                             </div>
                         </div>
 
                         <div id="subject" style="height: calc(96vh - (60px + 70px)); overflow: auto; border-0;">
                             {% for chat in chats %}
-                            {% if chat.chat_messages.count != 0 %}
                             {% get_companion user chat as companion %}
                                 <a id="{{chat.id}}" style="cursor: pointer;" class="message list-group-item list-group-item-action">
                                     {% if not chat.chat_messages.last.is_read and chat.chat_messages.last.sender != user %}<div class="mescolor badge float-right">{% unreads user chat %}</div>{% endif %}
@@ -42,7 +41,6 @@
                                         </div>
                                     </div>
                                  </a>
-                            {% endif %}
                             {% endfor %}
                         </div>
 
@@ -171,6 +169,7 @@
                     const subject = document.querySelector("#chatbox");
                     $("#chatbox").html("");
                     subject.insertAdjacentHTML("afterbegin", messages);
+                    $("#chatbox").prop({ scrollTop: $("#chatbox").prop("scrollHeight") });
                 }
              }
         };
@@ -337,6 +336,7 @@
                 document.querySelector('#chat-message-input').onkeyup = function(e) {
                     if (e.keyCode === 13) {  // enter, return
                         document.querySelector('#submit').click();
+                        document.querySelector('#chat-message-input').focus();
                     }
                 };
                 document.querySelector('#submit').onclick = function(e) {

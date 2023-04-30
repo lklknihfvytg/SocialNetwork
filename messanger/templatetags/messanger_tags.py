@@ -27,6 +27,7 @@ def unread_chats(user):
     count = 0
     for chat in user.user_chats.all():
         last = chat.chat_messages.last()
-        if last.sender != user and not last.is_read:
-            count += 1
+        if last:
+            if last.sender != user and not last.is_read:
+                count += 1
     return count

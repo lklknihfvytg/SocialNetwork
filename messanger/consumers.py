@@ -50,8 +50,9 @@ class BaseConsumer(WebsocketConsumer):
         count = 0
         for chat in user.user_chats.all():
             last = chat.chat_messages.last()
-            if last.sender != user and not last.is_read:
-                count += 1
+            if last:
+                if last.sender != user and not last.is_read:
+                    count += 1
 
         self.send(text_data=json.dumps({'count': count}))
 
@@ -64,10 +65,18 @@ def get_companion(chat, user_id):
 
 
 def chat_serializer(user_id):
-    chats = sorted(Chat.objects.filter(members__in=[user_id]), key=lambda c: c.chat_messages.last().id, reverse=True)
+    rem = []
+    chats = Chat.objects.filter(members__in=[user_id])
+    for chat in chats:
+        if chat.chat_messages.count() == 0:
+            rem.append(chat.id)
+    chats = chats.exclude(id__in=rem)
+    chats = sorted(chats, key=lambda c: c.chat_messages.last().id, reverse=True)
     result = []
     for chat in chats:
         messages = chat.chat_messages
+        if messages.count() == 0:
+            continue
         companion = get_companion(chat, user_id)
         unreads = messages.filter(is_read=False, sender=companion).count()
         mes = [{'position': 'r' if m.sender.id == user_id else 'l', 'text': m.text,

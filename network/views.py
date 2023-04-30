@@ -9,38 +9,6 @@ from .forms import ImageForm
 
 
 def index(request):
-    # if not request.user.is_authenticated:
-    #     return render(request, 'login.html')
-
-    # car = Car.objects.get(name='m3')
-    # print(car.zavod.name)
-    # zavod = Zavod.objects.get(name='bmw')
-    # print(zavod.car.all())
-    # for el in zavod.car.all():
-    #     print(el.name)
-
-    # post = Post.objects.get(id=1)
-    # user = request.user
-    # posts = Post.objects.all()
-    # for post in posts:
-    #     print(post.likes.all())
-
-    # for i in range (2, 11):
-    #     user = User(username=('TestUser'+str(i)), password='0000')
-    #     user.save()
-    #     profile = Profile(user=user, name=('Тест'+str(i)), surname='Тестович')
-    #     profile.save()
-    #     chat = Chat.objects.create()
-    #     chat.members.add(request.user)
-    #     chat.members.add(user)
-    #     chat.save()
-    #     message = Message(sender=user, text=('Привет тест'+str(i)), chat=chat)
-    #     message.save()
-    #     print(user)
-    #     print(profile)
-    #     print(chat)
-    #     print(message)
-
     return redirect('network:feed')
 
 
@@ -131,3 +99,34 @@ def image_upload_view(request):
         form = ImageForm()
         photos = Photo.objects.all()
     return render(request, 'photo.html', {'form': form, 'photos': photos})
+
+
+def change_names():
+    names = ['Александр', 'Максим', 'София', 'Михаил', 'Марк', 'Мария', 'Иван', 'Артем', 'Алиса', 'Лев',
+             'Дмитрий', 'Ева', 'Матвей', 'Даниил', 'Виктория', 'Варвара', 'Александра', 'Анастасия']
+    surnames = ['Иванов', 'Смирнов', 'Кузнецова', 'Попов', 'Васильев', 'Петрова', 'Соколов', 'Михайлов', 'Новикова',
+                'Федоров', 'Морозов', 'Волкова', 'Алексеев', 'Лебедев', 'Семенова', 'Егорова', 'Павлова', 'Козлова']
+    i = 0
+    users = User.objects.all()
+    print(users)
+    for user in users:
+        if 'Тест' in user.profile.name:
+            user.profile.name = names[i]
+            user.profile.surname = surnames[i]
+            user.profile.save()
+            user.save()
+            i += 1
+
+
+def create_users():
+    for i in range (2, 11):
+        user = User(username=('TestUser'+str(i)), password='0000')
+        user.save()
+        # profile = Profile(user=user, name=('Тест'+str(i)), surname='Тестович')
+        # profile.save()
+        # chat = Chat.objects.create()
+        # chat.members.add(request.user)
+        # chat.members.add(user)
+        # chat.save()
+        # message = Message(sender=user, text=('Привет тест'+str(i)), chat=chat)
+        # message.save()

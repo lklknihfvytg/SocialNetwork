@@ -22,25 +22,41 @@ def show_chats(request):
     #     message.save()
 
     # chats = Chat.objects.filter(members__in=[request.user])
-    chats = sorted(Chat.objects.filter(members__in=[request.user]), key=lambda c: c.chat_messages.last().id, reverse=True)
+    rem = []
+    chats = Chat.objects.filter(members__in=[request.user])
+    for chat in chats:
+        if chat.chat_messages.count() == 0:
+            rem.append(chat.id)
+    chats = chats.exclude(id__in=rem)
+    chats = sorted(chats,
+                   key=lambda c: c.chat_messages.last().id,
+                   reverse=True)
     return render(request, 'messanger.html', {'user': request.user, 'chats': chats})
 
 
 def create_chat(request, user_id):
-    try:
-        chat = Chat.objects.filter(members__in=[request.user.id, user_id]).distinct().first()
+    if not request.user.is_authenticated:
+        return render(request, 'login.html')
+
+    companion = User.objects.get(id=user_id)
+    chat = Chat.objects.filter(members__in=[request.user]).filter(members__in=[companion]).distinct().first()
+    if chat:
+        print(chat)
         print('exist')
-    except Exception:
+    else:
         print('dont exist')
         chat = Chat.objects.create()
         chat.members.add(request.user)
-        chat.members.add(user_id)
-
+        chat.members.add(companion)
+    print(chat)
     return redirect('messanger:messages', chat_id=chat.id)
 
 
 class MessagesView(View):
     def get(self, request, chat_id):
+        if not request.user.is_authenticated:
+            return render(request, 'login.html')
+
         try:
             chat = Chat.objects.get(id=chat_id, members__in=[request.user])
             if chat.chat_messages.count() != 0:
@@ -48,15 +64,20 @@ class MessagesView(View):
                     if message.sender != request.user:
                         message.is_read = True
                         message.save()
-            else:
-                chat = None
         except Chat.DoesNotExist:
             chat = None
 
-        chats = sorted(Chat.objects.filter(members__in=[request.user]), key=lambda c: c.chat_messages.last().id, reverse=True)
+        chats = sorted(Chat.objects.filter(members__in=[request.user]),
+                       key=lambda c: 999999 if c.chat_messages.count() == 0 else c.chat_messages.last().id,
+                       reverse=True)
+        print(chat)
+        print(chats)
         return render(request, 'messanger.html', {'user': request.user, 'chats': chats, 'main_chat': chat})
 
     def post(self, request, chat_id):
+        if not request.user.is_authenticated:
+            return render(request, 'login.html')
+
         try:
             redirect_to = request.GET.get('next', '')
         except Exception:
