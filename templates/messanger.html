@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load messanger_tags %}
-{% block title %}Моя страница{% endblock title %}
+{% block title %}Сообщения{% endblock title %}
 {% block head %}
 {% endblock head %}
 {% block container %}
@@ -12,9 +12,12 @@
             <div class="card rounded">
                 <div class="row g-0">
 
+        <!-- ==========    left column with chats    ====================================== -->
 
                     <div style="height: calc(96vh - 60px); padding-right: 0px;"
                          class="col-3 col-lg-4 col-xl-4 right-color">
+
+                        <!-- =======  top with search  ======= -->
 
                         <div style="height: 60px" class="px-2 d-none d-md-block bottom-color">
                             <div class="d-flex align-items-center">
@@ -23,6 +26,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <!-- =======  mid with chats  ======= -->
 
                         <div id="subject" style="height: calc(96vh - (60px + 70px)); overflow: auto; border-0;">
                             {% for chat in chats %}
@@ -40,12 +45,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                 </a>
+                                </a>
                             {% endfor %}
                         </div>
 
                     </div>
 
+        <!-- ==========    right column with chat    ====================================== -->
 
                     <div id="chat" style="height: calc(96vh - 60px); padding-left: 0px;"
                          class="col-9 col-lg-8 col-xl-8">

@@ -1,0 +1,21 @@
+<div class="card rounded">
+    <div class="card-child">
+        {% if request.user.is_authenticated and request.user == user %}
+        <form action="{% url 'network:upload_photo' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="page_owner_id" value="{{ user.id }}">
+            <input type="hidden" name="description" value="">
+            <input type="hidden" name="user" value="{{ request.user.id }}">
+            <p><label class="input-file"><input type="file" name="image"><span>Выберите фото</span></label>
+            <button style="display: none;" id="upload" type="submit" class="btn btn-primary btn-icon-text btn-edit-profile">Добавить
+            </button></p><br>
+        </form>
+        {% endif %}
+        {% if not photos %}
+            <div class="d-flex align-items-start">Фотографий нет</div>
+        {% endif %}
+        {% for photo in photos %}
+            <img style="height:200px; padding: 5px;" class="profile-pic" src="{{ photo.image.url }}" alt="profile">
+        {% endfor %}
+    </div>
+</div>

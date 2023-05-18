@@ -42,6 +42,10 @@ input.profile {
     color: white;
 }
 
+.input-file span {
+    background-color: #4F4F4F;
+}
+
 .form-control:focus {
     color: white;
 }

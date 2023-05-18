@@ -28,7 +28,7 @@ class ChatConsumer(WebsocketConsumer):
             except Exception:
                 print('error')
 
-        if r_type == 'mes':
+        if r_type == 'mes' and text_data_json['text']:
             message = Message(sender=User.objects.get(id=user_id), text=text_data_json['text'], chat_id=opened_chat)
             message.save()
 
@@ -46,6 +46,9 @@ class BaseConsumer(WebsocketConsumer):
         text_data_json = json.loads(text_data)
         user_id = text_data_json['user_id']
         user = User.objects.get(id=user_id)
+
+        if not user.is_authenticated:
+            self.disconnect(0)
 
         count = 0
         for chat in user.user_chats.all():

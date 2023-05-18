@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block title %}Друзья{% endblock title %}
+{% block container %}
+
+
+<div class="col-12 col-sm-12 col-md-12 col-lg-9 col-xl-10">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-8 col-xl-7">
+            <div class="row">
+                <div class="col-12 grid-margin">
+                    <div class="card rounded">
+                        <div class="card-child">
+                            <form action="{% url 'network:search' %}" method="get">
+                                <input type="text" class="profile post" name="text" placeholder="Люди и сообщества" autocomplete="off"></label>
+                                <br><input type="submit" style="margin: 0 180px;" class="centering btn btn-primary btn-icon-text btn-edit-profile" value="Поиск">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% if search %}
+                    <div class="col-12 grid-margin">
+                        <div class="card rounded">
+                            <div class="card-child">
+                                {% for user in users %}
+                                    <a href="{% url 'network:user_profile_by_id' user.id %}" style="cursor: pointer;" class="message list-group-item list-group-item-action">
+                                        <div class="d-flex align-items-start">
+                                            <img class="img-xs rounded-circle"
+                                                 src="{{ user.profile.profile_pic.url }}" height="40"
+                                                 class="img-xs rounded-circle mr-1" width="40">
+                                            <div class="flex-grow-1 ml-3">
+                                                {{ user.profile.name }} {{ user.profile.surname }}
+                                            </div>
+                                        </div>
+                                    </a>
+                                {% endfor %}
+                                {% if not users %}
+                                    <div class="d-flex align-items-start">Ничего не найдено</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% elif not count %}
+                    <div class="col-12 grid-margin">
+                        <div class="card rounded">
+                            <div class="card-child">
+                                <div class="d-flex align-items-start">Список друзей пуст</div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    {% if friends %}
+                    <div class="col-12 grid-margin">
+                        <div class="card rounded">
+                            <div class="card-child">
+                                <div class="d-flex align-items-start">Друзья</div>
+                                {% for friend in friends %}
+                                <a href="{% url 'network:user_profile_by_id' friend.user.id %}" style="cursor: pointer;" class="message list-group-item list-group-item-action">
+                                    <div class="d-flex align-items-start">
+                                        <img class="img-xs rounded-circle"
+                                             src="{{ friend.profile_pic.url }}" height="40"
+                                             class="img-xs rounded-circle mr-1" width="40">
+                                        <div class="flex-grow-1 ml-3">
+                                            {{ friend.name }} {{ friend.surname }}
+                                        </div>
+                                    </div>
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if follows %}
+                    <div class="col-12 grid-margin">
+                        <div class="card rounded">
+                            <div class="card-child">
+                                <div class="d-flex align-items-start">Подписки</div>
+                                {% for follow in follows %}
+                                <a href="{% url 'network:user_profile_by_id' follow.user.id %}" style="cursor: pointer;" class="message list-group-item list-group-item-action">
+                                    <div class="d-flex align-items-start">
+                                        <img class="img-xs rounded-circle"
+                                             src="{{ follow.profile_pic.url }}" height="40"
+                                             class="img-xs rounded-circle mr-1" width="40">
+                                        <div class="flex-grow-1 ml-3">
+                                            {{ follow.name }} {{ follow.surname }}
+                                        </div>
+                                    </div>
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if followers %}
+                    <div class="col-12 grid-margin">
+                        <div class="card rounded">
+                            <div class="card-child">
+                                <div class="d-flex align-items-start">Подписчики</div>
+                                {% for follower in followers %}
+                                <a href="{% url 'network:user_profile_by_id' follower.user.id %}" style="cursor: pointer;" class="message list-group-item list-group-item-action">
+                                    <div class="d-flex align-items-start">
+                                        <img class="img-xs rounded-circle"
+                                             src="{{ follower.profile_pic.url }}" height="40"
+                                             class="img-xs rounded-circle mr-1" width="40">
+                                        <div class="flex-grow-1 ml-3">
+                                            {{ follower.name }} {{ follower.surname }}
+                                        </div>
+                                    </div>
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+        {% include "left_cards.html" %}
+    </div>
+</div>
+
+
+{% endblock container %}

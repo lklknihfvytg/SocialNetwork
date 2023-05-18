@@ -6,14 +6,14 @@
         <div class="d-flex align-items-center py-1">
             {% get_companion user main_chat as companion %}
             <div class="position-relative">
-                <a href="{% url 'network:user_profile_by_username' companion.username %}">
+                <a href="{% url 'network:user_profile_by_id' companion.id %}">
                     <img src="{{ companion.profile.profile_pic.url }}"
                          class="img-xs rounded-circle mr-1" width="40"
                          height="40">
                 </a>
             </div>
             <div class="flex-grow-1 pl-3">
-                <strong><a class="color" href="{% url 'network:user_profile_by_username' companion.username %}">{% if companion.profile %}{{ companion.profile.name }} {{ companion.profile.surname }}{% else %}{{companion.username}}{% endif %}</a></strong>
+                <strong><a class="color" href="{% url 'network:user_profile_by_id' companion.id %}">{% if companion.profile %}{{ companion.profile.name }} {{ companion.profile.surname }}{% else %}{{companion.username}}{% endif %}</a></strong>
             </div>
             <div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -52,9 +52,11 @@
 </div>
 
 <div class="flex-grow-0 py-2 px-2 top-color">
-    <form action="{% url 'messanger:messages' main_chat.id %}?next={{request.path}}" method="post">
+    <form action="{% url 'messanger:messages' %}?next={{request.path}}" method="post">
         <div class="input-group">
             {% csrf_token %}
+            <input type="hidden" name="chat" value="{{ main_chat.id }}">
+            <input type="hidden" name="sender" value="{{ request.user.id }}">
             <input name="text" type="text" class="form-control round" autocomplete="off">
             <button class="button-send" type="submit">
                 <svg

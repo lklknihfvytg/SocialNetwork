@@ -1,0 +1,101 @@
+
+
+
+
+<div class="d-none d-lg-block col-lg-4 col-xl-5">
+    <div class="row">
+        <div class="col-12 grid-margin">
+            <div class="card rounded">
+                <div class="card-body">
+                    <h6 class="card-title">Возможные друзья</h6>
+                    {% for rec in recs %}
+                    <a href="{% url 'network:user_profile_by_id' rec.user.id %}" style="cursor: pointer;" class="message list-group-item list-group-item-action">
+                        <div class="d-flex align-items-start">
+                            <img class="img-xs rounded-circle"
+                                 src="{{ rec.profile_pic.url }}" height="40"
+                                 class="img-xs rounded-circle mr-1" width="40">
+                            <div class="flex-grow-1 ml-3">
+                                {{ rec.name }} {{ rec.surname }}
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-12 grid-margin">
+            <div class="card rounded">
+                <div class="card-body">
+                    <h6 class="card-title">Последние фотографии</h6>
+                    <div class="latest-photos">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <figure>
+                                    <img class="img-fluid"
+                                         src="https://bootdey.com/img/Content/avatar/avatar1.png"
+                                         alt="">
+                                </figure>
+                            </div>
+                            <div class="col-md-4">
+                                <figure>
+                                    <img class="img-fluid"
+                                         src="https://bootdey.com/img/Content/avatar/avatar2.png"
+                                         alt="">
+                                </figure>
+                            </div>
+                            <div class="col-md-4">
+                                <figure>
+                                    <img class="img-fluid"
+                                         src="https://bootdey.com/img/Content/avatar/avatar3.png"
+                                         alt="">
+                                </figure>
+                            </div>
+                            <div class="col-md-4">
+                                <figure>
+                                    <img class="img-fluid"
+                                         src="https://bootdey.com/img/Content/avatar/avatar4.png"
+                                         alt="">
+                                </figure>
+                            </div>
+                            <div class="col-md-4">
+                                <figure>
+                                    <img class="img-fluid"
+                                         src="https://bootdey.com/img/Content/avatar/avatar5.png"
+                                         alt="">
+                                </figure>
+                            </div>
+                            <div class="col-md-4">
+                                <figure>
+                                    <img class="img-fluid"
+                                         src="https://bootdey.com/img/Content/avatar/avatar6.png"
+                                         alt="">
+                                </figure>
+                            </div>
+                            <div class="col-md-4">
+                                <figure class="mb-0">
+                                    <img class="img-fluid"
+                                         src="https://bootdey.com/img/Content/avatar/avatar7.png"
+                                         alt="">
+                                </figure>
+                            </div>
+                            <div class="col-md-4">
+                                <figure class="mb-0">
+                                    <img class="img-fluid"
+                                         src="https://bootdey.com/img/Content/avatar/avatar8.png"
+                                         alt="">
+                                </figure>
+                            </div>
+                            <div class="col-md-4">
+                                <figure class="mb-0">
+                                    <img class="img-fluid"
+                                         src="https://bootdey.com/img/Content/avatar/avatar8.png"
+                                         alt="">
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

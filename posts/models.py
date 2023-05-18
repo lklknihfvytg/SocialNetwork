@@ -7,7 +7,7 @@ from django.db import models
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     text = models.CharField(max_length=1280, blank=True)
-    post_pic = models.CharField(max_length=128, blank=True)
+    post_pic = models.ImageField(upload_to='posts', blank=True)
     creation_time = models.DateTimeField(auto_now_add=True)
     likes = models.ManyToManyField(User, through="PostLike", related_name='post_likes')
     comments = models.ManyToManyField(User, through="PostComment", related_name='post_comments')

@@ -1,15 +1,14 @@
 
         <div class="col-12 grid-margin">
             <div class="card rounded">
-<!--                <div class="card-header">-->
                     <div style="padding: 10px 20px 10px 20px;" class="d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center">
-                            <a href="{% url 'network:user_profile_by_username' post.user.username %}">
+                            <a href="{% url 'network:user_profile_by_id' post.user.id %}">
                                 <img class="img-xs rounded-circle"
                                      src="{{ post.user.profile.profile_pic.url }}" alt="">
                             </a>
                             <div class="ml-2">
-                                <p><a class="color" style="padding-top: 20px; text-decoration:none;" href="{% url 'network:user_profile_by_username' post.user.username %}">{{ post.user.profile.name }} {{ post.user.profile.surname }}</a></p>
+                                <p><a class="color" style="padding-top: 20px; text-decoration:none;" href="{% url 'network:user_profile_by_id' post.user.id %}">{{ post.user.profile.name }} {{ post.user.profile.surname }}</a></p>
 <!--                                                        <p class="tx-11 text-muted">1 min ago</p>-->
                                 <p style="font-size: 9; font-weight: 10;" class="tx-11 text-muted"><small>{{ post.creation_time }}</small></p>
                             </div>
@@ -83,7 +82,7 @@
                     <div style="padding-left: 20px; padding-right: 20px;">
                     {% if post.is_tiny %}<h4>{{ post.text }}</h4>{% else %}<p class="mb-3 tx-14">{{ post.text }}</p>{% endif %}
                     {% if post.post_pic %}
-                    <img class="img-fluid" src="{{ post.post_pic }}"
+                    <img style="height:400px; padding-bottom: 15px;" class="img-fluid" src="{{ post.post_pic.url }}"
                          alt="">
                     {% endif %}
                     </div>

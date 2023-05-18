@@ -59,7 +59,7 @@
                     </svg>
                 </a>
                 {% if request.user.is_authenticated %}
-                <a style="text-decoration:none;" href="{% url 'network:my_profile' %}">
+                <a style="text-decoration:none;" href="{% url 'network:user_profile_by_id' request.user.id %}">
                     <img class="img-xs rounded-circle"
                          src="{{ request.user.profile.profile_pic.url }}" alt="">
                 </a>
@@ -77,7 +77,7 @@
             <div class="col-12 col-sm-12 col-md-12 col-lg-3 col-xl-2 smallpadding">
                 <div class="card rounded">
                     <div class="card-body-my">
-                        <a class="color" style="text-decoration:none;" href="{% url 'network:my_profile' %}">
+                        <a class="color" style="text-decoration:none;" href="{% if request.user.is_authenticated %}{% url 'network:user_profile_by_id' request.user.id %}{% else %}{% url 'authentication:login' %}{% endif %}">
                             <h6 class="first">
                                 <svg fill="none" height="20" viewBox="0 0 20 20" width="20"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -102,8 +102,8 @@
                                     </g>
                                 </svg>
                                 &nbsp;Сообщения&nbsp;
-                                {% if user.is_authenticated %}
-                                {% unread_chats user as uc %}
+                                {% if request.user.is_authenticated %}
+                                {% unread_chats request.user as uc %}
                                 <div id="badge" style="display: {% if uc > 0 %}inline{% else %}none{% endif %};" class="mescolor badge float-right">{{ uc }}</div>
                                 <span id="spaces" style="display: {% if uc > 0 %}none{% else %}inline{% endif %};">&nbsp;&nbsp;&nbsp;</span>
                                 {% endif %}
@@ -120,7 +120,7 @@
                                 &nbsp;Новости
                             </h6>
                         </a>
-                        <a class="color" style="text-decoration:none;" href="#">
+                        <a class="color" style="text-decoration:none;" href="{% url 'network:friends' %}">
                             <h6>
                                 <svg fill="none" height="20" viewBox="0 0 20 20" width="20"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -145,7 +145,7 @@
                                 &nbsp;Сообщества
                             </h6>
                         </a>
-                        <a class="color" style="text-decoration:none;" href="#">
+                        <a class="color" style="text-decoration:none;" href="{% url 'network:videos' %}">
                             <h6>
                                 <svg fill="none" height="20" viewBox="0 0 20 20" width="20"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -157,7 +157,7 @@
                                 &nbsp;Видео
                             </h6>
                         </a>
-                        <a class="color" style="text-decoration:none;" href="#">
+                        <a class="color" style="text-decoration:none;" href="{% url 'network:photos' %}">
                             <h6 class="last">
                                 <svg fill="none" height="20" viewBox="0 0 20 20" width="20"
                                      xmlns="http://www.w3.org/2000/svg">
@@ -801,7 +801,7 @@
     </div>
 </div>
 {{ user.username|json_script:"username" }}
-{{ user.id|json_script:"user_id" }}
+{{ request.user.id|json_script:"user_id" }}
 
 <!--<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>-->
 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
@@ -862,6 +862,15 @@
 
 
 
+</script>
+<script>
+    if (document.getElementsByClassName("input-file") !== null) {
+        $('.input-file input[type=file]').on('change', function(){
+            document.getElementById("upload").style.display = 'block';
+            let file = this.files[0];
+            $(this).next().html(file.name);
+        });
+    }
 </script>
 {% block script %}
 
